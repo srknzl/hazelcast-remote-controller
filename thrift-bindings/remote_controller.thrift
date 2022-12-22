@@ -26,6 +26,14 @@ struct Member{
     3:i32 port;
 }
 
+struct ProxiedMember{
+    1:string uuid;
+    2:string host;
+    3:i32 port;
+    4:string proxyHost;
+    5:i32 proxyPort;
+}
+
 struct Response{
     1:bool success;
     2:string message;
@@ -55,6 +63,7 @@ service RemoteController {
     Cluster createClusterKeepClusterName(1:string hzVersion, 2:string xmlconfig) throws (1:ServerException serverException);
 
     Member startMember(1:string clusterId) throws (1:ServerException serverException);
+    ProxiedMember startProxiedMember(1:string clusterId) throws (1:ServerException serverException);
     bool shutdownMember(1:string clusterId, 2:string memberId);
     bool terminateMember(1:string clusterId, 2:string memberId);
     bool suspendMember(1:string clusterId, 2:string memberId);

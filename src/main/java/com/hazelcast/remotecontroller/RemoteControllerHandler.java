@@ -48,6 +48,11 @@ public class RemoteControllerHandler implements RemoteController.Iface {
     }
 
     @Override
+    public ProxiedMember startProxiedMember(String clusterId) throws TException {
+        return clusterManager.startProxiedMember(clusterId);
+    }
+
+    @Override
     public boolean shutdownMember(String clusterId, String memberId) throws TException {
         return clusterManager.shutdownMember(clusterId, memberId);
     }

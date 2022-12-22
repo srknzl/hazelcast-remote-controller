@@ -57,6 +57,13 @@ public class ClusterManager {
         return new Member(member.getUuid().toString(), member.getAddress().getHost(), member.getAddress().getPort());
     }
 
+    public ProxiedMember startProxiedMember(String clusterId) throws ServerException {
+        Member member = startMember(clusterId);
+        TcpProxy proxy = new TcpProxy(member);
+        proxy.run();
+        return new ProxiedMember(member.getUuid(), member.getHost(), member.getPort(), proxy.getHost(), proxy.getPort());
+    }
+
     public boolean shutdownMember(String clusterId, String memberId) {
         LOG.info("Shutting down the Member " + memberId + "on cluster : " + clusterId);
         HzCluster hzCluster = clusterMap.get(clusterId);
